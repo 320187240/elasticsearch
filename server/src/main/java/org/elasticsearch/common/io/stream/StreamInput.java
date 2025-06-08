@@ -64,15 +64,16 @@ import static java.nio.charset.StandardCharsets.ISO_8859_1;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
- * A stream from this node to another node. Technically, it can also be streamed to a byte array but that is mostly for testing.
+ * 一个从此节点流向其他节点的流。技术上讲，它也可以写入字节数组，但这主要是用于测试。
  *
- * This class's methods are optimized so you can put the methods that read and write a class next to each other and you can scan them
- * visually for differences. That means that most variables should be read and written in a single line so even large objects fit both
- * reading and writing on the screen. It also means that the methods on this class are named very similarly to {@link StreamOutput}. Finally
- * it means that the "barrier to entry" for adding new methods to this class is relatively low even though it is a shared class with code
- * everywhere. That being said, this class deals primarily with {@code List}s rather than Arrays. For the most part calls should adapt to
- * lists, either by storing {@code List}s internally or just converting to and from a {@code List} when calling. This comment is repeated
- * on {@link StreamInput}.
+ * 此类的方法经过优化，使得你可以将读取和写入某个类的方法并列放置，并方便地在视觉上进行对比，查找差异。
+ * 这意味着大多数变量应该在一行内完成读或写操作，这样即使对象较大，也能让读写操作同时显示在屏幕上。
+ * 同时这也意味着此类中的方法命名应与 {@link StreamOutput} 类非常相似。
+ * 最后，这意味着即便这是一个被广泛使用的类，其方法的新增门槛也相对较低。
+ * 顺便提一句，这个类主要处理的是 {@code List} 而不是数组。
+ * 大多数情况下，调用应该适配列表，可以通过内部存储 {@code List}，
+ * 或者在调用时进行列表的转换。
+ * 此段注释同样出现在 {@link StreamInput} 类中。
  */
 public abstract class StreamInput extends InputStream {
 

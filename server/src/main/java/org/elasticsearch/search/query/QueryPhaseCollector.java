@@ -30,15 +30,15 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Top-level collector used in the query phase to perform top hits collection as well as aggs collection.
- * Inspired by {@link org.apache.lucene.search.MultiCollector} but specialized for wrapping two collectors and filtering collected
- * documents as follows:
- * - through an optional <code>post_filter</code> that is applied to the top hits collection
- * - through an optional <code>min_score</code> threshold, which is applied to both the top hits as well as aggs.
- * Supports also terminating the collection after a certain number of documents have been collected (<code>terminate_after</code>).
+ * 在查询阶段用于执行 top hits 收集和 aggs 收集的顶级收集器。
+ * 受 {@link org.apache.lucene.search.MultiCollector} 的启发，但专门用于包装两个收集器和过滤收集的
+ * 文件如下：
+ * - 通过应用于 Top Hits 集合的可选<code>post_filter</code>
+ * - 通过可选的 <code>min_score</code> 阈值，该阈值同时应用于 Top Hit 和 Aggs。
+ * 还支持在收集一定数量的文档后终止收集 （<code>terminate_after</code>）。
  *
- * When top docs as well as aggs are collected (because both collectors were provided), skipping low scoring hits via
- * {@link Scorable#setMinCompetitiveScore(float)} is not supported for either of the collectors.
+ * 收集 top docs 和 agg 时（因为提供了两个收集器），通过
+ * {@link Scorable#setMinCompetitiveScore（float）} 不支持任何一个收集器。
  */
 public final class QueryPhaseCollector implements TwoPhaseCollector {
     private final Collector aggsCollector;

@@ -20,9 +20,9 @@ import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Extension of {@link TotalHitCountCollector} that supports early termination of total hits counting based on a provided threshold.
- * Note that the total hit count may be retrieved from {@link org.apache.lucene.search.Weight#count(LeafReaderContext)},
- * in which case early termination is only applied to the leaves that do collect documents.
+ * {@link TotalHitCountCollector} 的扩展，支持根据提供的阈值提前终止总点击计数。
+ * 请注意，总命中计数可以从 {@link org.apache.lucene.search.Weight#count（LeafReaderContext）} 中检索。
+ * 在这种情况下，提前终止仅适用于收集文档的 leaves。
  */
 class PartialHitCountCollector extends TotalHitCountCollector {
 

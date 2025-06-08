@@ -50,8 +50,8 @@ import java.util.concurrent.ExecutorService;
 import static org.elasticsearch.search.internal.SearchContext.TRACK_TOTAL_HITS_DISABLED;
 
 /**
- * Query phase of a search request, used to run the query and get back from each shard information about the matching documents
- * (document ids and score or sort criteria) so that matches can be reduced on the coordinating node
+ * 搜索请求的 Query 阶段，用于运行查询并从每个分片中获取有关匹配文档的信息
+ *（文档 ID 和分数或排序标准），以便可以减少协调节点上的匹配项
  */
 public class QueryPhase {
     private static final Logger LOGGER = LogManager.getLogger(QueryPhase.class);

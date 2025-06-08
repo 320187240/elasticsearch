@@ -19,11 +19,11 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * A {@link SourceProvider} that loads _source from a concurrent search.
+ * 一个 {@link SourceProvider}，用于从并发搜索加载_source。
  *
- * NOTE: This is written under the assumption that individual segments are accessed by a single
- * thread, even if separate segments may be searched concurrently. If we ever implement
- * within-segment concurrency this will have to work entirely differently.
+ * 注意：这是在假设单个 Segment 由单个
+ * 线程，即使可以同时搜索单独的段。如果我们实施
+ * 在 Segment 内并发中，这必须完全不同地工作。
  * **/
 class ConcurrentSegmentSourceProvider implements SourceProvider {
     private final SourceLoader sourceLoader;

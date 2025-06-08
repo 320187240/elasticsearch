@@ -14,11 +14,11 @@ import org.elasticsearch.search.DocValueFormat;
 import org.elasticsearch.search.profile.query.CollectorResult;
 
 /**
- * Includes result returned by a search operation as part of the query phase.
- * @param topDocsAndMaxScore the {@link org.apache.lucene.search.TopDocs} as wel as the optional maximum score
- * @param sortValueFormats the fields that the request was sorted on
- * @param terminatedAfter whether the request was early terminated, based on the <code>terminate_after</code> functionality
- * @param collectorResult the profile result (when profiling was enabled)
+ * 包括搜索作作为查询阶段的一部分返回的结果。
+ * @param topDocsAndMaxScore {@link org.apache.lucene.search.TopDocs} 作为可选的最高分数
+ * @param sortValueFormats 对请求进行排序的字段
+ * @param终止请求是否提前终止后，根据 <code>terminate_after</code> 功能
+ * @param collectorResult 分析结果（启用分析时）
  */
 public record QueryPhaseResult(
     TopDocsAndMaxScore topDocsAndMaxScore,

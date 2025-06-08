@@ -12,9 +12,9 @@ package org.elasticsearch.common.io.stream;
 import java.io.IOException;
 
 /**
- * Implementers can be written to a {@linkplain StreamOutput} and read from a {@linkplain StreamInput}. This allows them to be "thrown
- * across the wire" using Elasticsearch's internal protocol. If the implementer also implements equals and hashCode then a copy made by
- * serializing and deserializing must be equal and have the same hashCode. It isn't required that such a copy be entirely unchanged.
+ * 实现者可以写入 {@linkplain StreamOutput} 并从 {@linkplain StreamInput} 读取。这允许他们被“扔出
+ * across the wire“使用 Elasticsearch 的内部协议。如果实现者还实现了 equals 和 hashCode，则由
+ * 序列化和反序列化必须相等，并且具有相同的 hashCode。不要求这样的副本完全不变。
  */
 public interface Writeable {
 
@@ -24,17 +24,17 @@ public interface Writeable {
     void writeTo(StreamOutput out) throws IOException;
 
     /**
-     * Reference to a method that can write some object to a {@link StreamOutput}.
+     * 引用可以将某些对象写入 {@link StreamOutput} 的方法。
      * <p>
-     * By convention this is a method from {@link StreamOutput} itself (e.g., {@link StreamOutput#writeString(String)}. If the value can be
-     * {@code null}, then the "optional" variant of methods should be used!
+     * 按照惯例，这是来自 {@link StreamOutput} 本身的方法（例如，{@link StreamOutput# writeString（String）}）。如果该值可以是
+     * {@code null}，那么应该使用方法的 “optional” 变体！
      * <p>
-     * Most classes should implement {@link Writeable} and the {@link Writeable#writeTo(StreamOutput)} method should <em>use</em>
-     * {@link StreamOutput} methods directly or this indirectly:
+     * 大多数类都应该实现 {@link Writeable}，而 {@link Writeable#writeTo（StreamOutput）} 方法应该<em>使用</em>
+     * {@link StreamOutput} 方法：
      * <pre><code>
-     * public void writeTo(StreamOutput out) throws IOException {
-     *     out.writeVInt(someValue);
-     *     out.writeMapOfLists(someMap, StreamOutput::writeString, StreamOutput::writeString);
+     * public void writeTo（StreamOutput out） 抛出 IOException {
+     * out.writeVInt（someValue）;
+     * out.writeMapOfLists（someMap， StreamOutput：：writeString， StreamOutput：：writeString）;
      * }
      * </code></pre>
      */
@@ -42,26 +42,26 @@ public interface Writeable {
     interface Writer<V> {
 
         /**
-         * Write {@code V}-type {@code value} to the {@code out}put stream.
+         * 将 {@code V} 类型的 {@code value} 写入 {@code out} put 流。
          *
-         * @param out Output to write the {@code value} too
-         * @param value The value to add
+         * @param out Output 也写入 {@code value}
+         * @param value 要添加的值
          */
         void write(StreamOutput out, V value) throws IOException;
 
     }
 
     /**
-     * Reference to a method that can read some object from a stream. By convention this is a constructor that takes
-     * {@linkplain StreamInput} as an argument for most classes and a static method for things like enums. Returning null from one of these
-     * is always wrong - for that we use methods like {@link StreamInput#readOptionalWriteable(Reader)}.
+     * 对可以从流中读取某些对象的方法的引用。按照惯例，这是一个采用
+     * {@linkplain StreamInput} 作为大多数类的参数和枚举等内容的静态方法。从其中一个返回 null
+     * 总是错误的 - 为此，我们使用 {@link StreamInput#readOptionalWriteable（Reader）} 等方法。
      * <p>
-     * As most classes will implement this via a constructor (or a static method in the case of enumerations), it's something that should
-     * look like:
+     * 由于大多数类将通过构造函数（或在枚举的情况下使用静态方法）来实现这一点，因此应该
+     *肖：
      * <pre><code>
-     * public MyClass(final StreamInput in) throws IOException {
-     *     this.someValue = in.readVInt();
-     *     this.someMap = in.readMapOfLists(StreamInput::readString, StreamInput::readString);
+     * public MyClass（final StreamInput in） 抛出 IOException {
+     * this.someValue = in.readVInt（）;
+     * this.someMap = in.readMapOfLists（StreamInput：：readString， StreamInput：：readString）;
      * }
      * </code></pre>
      */
@@ -69,9 +69,9 @@ public interface Writeable {
     interface Reader<V> {
 
         /**
-         * Read {@code V}-type value from a stream.
+         * 从流中读取 {@code V} 类型的值。
          *
-         * @param in Input to read the value from
+         * @param输入中读取值
          */
         V read(StreamInput in) throws IOException;
     }

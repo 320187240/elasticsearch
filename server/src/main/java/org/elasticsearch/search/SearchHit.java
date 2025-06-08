@@ -98,9 +98,9 @@ public final class SearchHit implements Writeable, ToXContentObject, RefCounted 
     @Nullable
     private SearchShardTarget shard;
 
-    // These two fields normally get set when setting the shard target, so they hold the same values as the target thus don't get
-    // serialized over the wire. When parsing hits back from xcontent though, in most of the cases (whenever explanation is disabled)
-    // we can't rebuild the shard target object so we need to set these manually for users retrieval.
+    // 这两个字段通常在设置分片目标时设置，因此它们与目标具有相同的值，因此不会获得
+    // 通过 Wire.不过，当从 xcontent 解析回 hits 时，在大多数情况下（每当禁用解释时）
+    // 我们无法重新构建分片目标对象，因此我们需要手动设置这些对象以供用户检索。
     private transient String index;
     private transient String clusterAlias;
 
@@ -399,16 +399,16 @@ public final class SearchHit implements Writeable, ToXContentObject, RefCounted 
     }
 
     /**
-     * returns the sequence number of the last modification to the document, or {@link SequenceNumbers#UNASSIGNED_SEQ_NO}
-     * if not requested.
+     * 返回对文档的最后一次修改的序列号，或 {@link SequenceNumbers#UNASSIGNED_SEQ_NO}
+     * 如果未要求。
      **/
     public long getSeqNo() {
         return this.seqNo;
     }
 
     /**
-     * returns the primary term of the last modification to the document, or {@link SequenceNumbers#UNASSIGNED_PRIMARY_TERM}
-     * if not requested. */
+     * 返回对文档的上次修改的主要术语，或 {@link SequenceNumbers#UNASSIGNED_PRIMARY_TERM}
+     * 如果未要求。*/
     public long getPrimaryTerm() {
         return this.primaryTerm;
     }
@@ -428,7 +428,7 @@ public final class SearchHit implements Writeable, ToXContentObject, RefCounted 
     }
 
     /**
-     * If this is a nested hit then nested reference information is returned otherwise <code>null</code> is returned.
+     * 如果这是嵌套点击，则返回嵌套引用信息，否则返回 <code>null</code>。
      */
     public NestedIdentity getNestedIdentity() {
         return nestedIdentity;
@@ -460,8 +460,8 @@ public final class SearchHit implements Writeable, ToXContentObject, RefCounted 
     }
 
     /**
-     * Is the source available or not. A source with no fields will return true. This will return false if {@code fields} doesn't contain
-     * {@code _source} or if source is disabled in the mapping.
+     * 源是否可用。没有字段的源将返回 true。如果 {@code fields} 不包含
+     * {@code _source} 或在映射中禁用了 source。
      */
     public boolean hasSource() {
         assert hasReferences();
@@ -484,9 +484,9 @@ public final class SearchHit implements Writeable, ToXContentObject, RefCounted 
     }
 
     /**
-     * The source of the document as a map (can be {@code null}). This method is expected
-     * to be called at most once during the lifetime of the object as the generated map
-     * is expensive to generate and it does not get cache.
+     * 以地图形式显示的文档源（可以是 {@code null}）。此方法是预期的
+     * 在对象的生命周期内作为生成的映射最多调用一次
+     * 的生成成本很高，并且不会获得缓存。
      */
     public Map<String, Object> getSourceAsMap() {
         assert hasReferences();
@@ -1058,10 +1058,10 @@ public final class SearchHit implements Writeable, ToXContentObject, RefCounted 
         }
 
         /**
-         * Extracts the part of the root source that applies to this particular NestedIdentity, while
-         * preserving the enclosing path structure.
+         * 提取根源中应用于此特定 NestedIdentity 的部分，而
+         * 保留封闭路径结构。
          *
-         * For a root document that looks like this:
+         * 对于如下所示的根文档：
          * { "children" :
          *    [
          *      { "grandchildren" : [ { "field" : "value1" }, { "field" : "value2" } ] },
@@ -1072,14 +1072,14 @@ public final class SearchHit implements Writeable, ToXContentObject, RefCounted 
          * Extracting the NestedIdentity of the first child and second grandchild results in a source that looks like this:
          * { "children" : { "grandchildren" : { "field" : "value2" } } }
          *
-         * If the relevant child source object does not exist in the root, then we return {@link Source#empty(XContentType)}
+         * 如果根中不存在相关的子源对象，则返回 {@link Source#empty（XContentType）}
          */
         @SuppressWarnings("unchecked")
         public Source extractSource(Source root) {
-            // Isolate the nested json array object that matches with nested hit and wrap it back into the same json
-            // structure with the nested json array object being the actual content. The latter is important, so that
-            // features like source filtering and highlighting work consistent regardless of whether the field points
-            // to a json object array for consistency reasons on how we refer to fields
+            // 隔离与嵌套点击匹配的嵌套 json 数组对象，并将其包装回同一 json 中
+            // 结构体，其中嵌套的 JSON 数组对象是实际内容。后者很重要，因此
+            // 源筛选和突出显示等功能的工作方式一致，无论字段是否指向
+            // 到 JSON 对象数组中，以保证我们如何引用字段
             Map<String, Object> rootSourceAsMap = root.source();
             Map<String, Object> nestedSourceAsMap = new HashMap<>();
             Map<String, Object> current = nestedSourceAsMap;

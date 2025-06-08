@@ -72,9 +72,9 @@ import static org.elasticsearch.search.profile.query.CollectorResult.REASON_SEAR
 import static org.elasticsearch.search.profile.query.CollectorResult.REASON_SEARCH_TOP_HITS;
 
 /**
- * Base collector manager that creates and reduces {@link QueryPhaseCollector}s used in the query phase.
- * It is aware of profiling, in that it applies the proper wrapping as well as reduction of collectors when profiling is enabled.
- * The different subclasses plug in their specific behaviour that revolves around top docs collection.
+ * Base collector 管理器，用于创建和减少查询阶段使用的 {@link QueryPhaseCollector}。
+ * 它知道分析，因为它在启用分析时应用适当的包装并减少收集器。
+ * 不同的子类插入了它们围绕 top docs 集合的特定行为。
  */
 abstract class QueryPhaseCollectorManager implements CollectorManager<Collector, QueryPhaseResult> {
     private final Weight postFilterWeight;

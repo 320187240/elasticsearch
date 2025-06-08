@@ -53,15 +53,16 @@ import java.util.function.IntFunction;
 import static java.util.Map.entry;
 
 /**
- * A stream from another node to this node. Technically, it can also be streamed from a byte array but that is mostly for testing.
+ * 一个从其他节点流向本节点的流。技术上讲，它也可以从字节数组中读取流，但这主要是用于测试。
  *
- * This class's methods are optimized so you can put the methods that read and write a class next to each other and you can scan them
- * visually for differences. That means that most variables should be read and written in a single line so even large objects fit both
- * reading and writing on the screen. It also means that the methods on this class are named very similarly to {@link StreamInput}. Finally
- * it means that the "barrier to entry" for adding new methods to this class is relatively low even though it is a shared class with code
- * everywhere. That being said, this class deals primarily with {@code List}s rather than Arrays. For the most part calls should adapt to
- * lists, either by storing {@code List}s internally or just converting to and from a {@code List} when calling. This comment is repeated
- * on {@link StreamInput}.
+ * 此类的方法经过优化，使得你可以将读取和写入某个类的方法并列放置，并方便地在视觉上进行对比，查找差异。
+ * 这意味着大多数变量应该在一行内完成读或写操作，这样即使对象较大，也能让读写操作同时显示在屏幕上。
+ * 同时这也意味着此类中的方法命名应与 {@link StreamInput} 类非常相似。
+ * 最后，这意味着即便这是一个被广泛使用的类，其方法的新增门槛也相对较低。
+ * 顺便提一句，这个类主要处理的是 {@code List} 而不是数组。
+ * 大多数情况下，调用应该适配列表，可以通过内部存储 {@code List}，
+ * 或者在调用时进行列表的转换。
+ * 此段注释同样出现在 {@link StreamInput} 类中。
  */
 public abstract class StreamOutput extends OutputStream {
 
@@ -283,9 +284,9 @@ public abstract class StreamOutput extends OutputStream {
     }
 
     /**
-     * Writes a non-negative long in a variable-length format. Writes between one and ten bytes. Smaller values take fewer bytes. Negative
-     * numbers use ten bytes and trip assertions (if running in tests) so prefer {@link #writeLong(long)} or {@link #writeZLong(long)} for
-     * negative numbers.
+     * 以可变长度格式写入一个非负长整数。写入1到10个字节。值越小，占用的字节越少。负数
+     * 数字占用十个字节，且在测试中运行时会进行断言（如果运行），因此建议使用{@link #writeLong(long)}或{@link #writeZLong(long)}
+     * 负数。
      */
     public void writeVLong(long i) throws IOException {
         if (i < 0) {
@@ -319,11 +320,11 @@ public abstract class StreamOutput extends OutputStream {
     }
 
     /**
-     * Writes a long in a variable-length format. Writes between one and ten bytes.
-     * Values are remapped by sliding the sign bit into the lsb and then encoded as an unsigned number
-     * e.g., 0 -;&gt; 0, -1 -;&gt; 1, 1 -;&gt; 2, ..., Long.MIN_VALUE -;&gt; -1, Long.MAX_VALUE -;&gt; -2
-     * Numbers with small absolute value will have a small encoding
-     * If the numbers are known to be non-negative, use {@link #writeVLong(long)}
+     * 以可变长度格式写入 long。写入 1 到 10 个字节。
+     * 通过将符号位滑入 lsb 然后编码为无符号数字来重新映射值
+     * 例如，0 -;&gt; 0， -1 -;&gt; 1， 1 -;&gt; 2， ...， Long.MIN_VALUE -;&gt; -1， Long.MAX_VALUE -;&gt; -2
+     * 绝对值较小的数字将具有较小的编码
+     * 如果已知数字为非负数，请使用 {@link #writeVLong（long）}
      */
     public void writeZLong(long i) throws IOException {
         final byte[] buffer = scratch.get();

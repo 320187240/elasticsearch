@@ -10,12 +10,9 @@
 package org.elasticsearch.xcontent;
 
 /**
- * An interface allowing to transfer an object to "XContent" using an
- * {@link XContentBuilder}. The difference between {@link ToXContentFragment}
- * and {@link ToXContentObject} is that the former outputs a fragment that
- * requires to start and end a new anonymous object externally, while the latter
- * guarantees that what gets printed out is fully valid syntax without any
- * external addition.
+ * 这是一个允许使用 {@link XContentBuilder} 将对象转换为 "XContent" 的接口。
+ * {@link ToXContentFragment} 与 {@link ToXContentObject} 之间的区别在于，
+ * 前者输出的是一个片段，需要外部开始和结束一个新的匿名对象；而后者则保证输出的内容在语法上是完整的，不需要任何外部补充。
  */
 public interface ToXContentObject extends ToXContent {
 

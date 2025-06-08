@@ -10,17 +10,17 @@
 package org.elasticsearch.core;
 
 /**
- *  An interface for objects that need to be notified when all reference
- *  to itself are not in user anymore. This implements basic reference counting
- *  for instance if async operations holding on to services that are close concurrently
- *  but should be functional until all async operations have joined
- *  Classes implementing this interface should ref counted at any time ie. if an object is used it's reference count should
- *  be increased before using it by calling #incRef and a corresponding #decRef must be called in a try/finally
- *  block to release the object again ie.:
+ *  一个为那些需要在自身不再被任何用户引用时收到通知的对象设计的接口。
+ *  此接口实现了基本的引用计数功能。例如，当异步操作持有一个服务对象，
+ *  而该服务可能被并发地关闭时，只要还有异步操作在使用它，就应保证其功能可用。
+ *  实现此接口的类应在任何时候都进行引用计数。也就是说，当一个对象将被使用时，
+ *  必须在其使用前通过调用 #incRef() 方法增加引用计数；
+ *  并且在使用结束后，必须在 try/finally 块中调用对应的 #decRef() 方法来释放该对象。
+ *  例如：
  * <pre>
  *      inst.incRef();
  *      try {
- *        // use the inst...
+ *        // 使用 inst...
  *
  *      } finally {
  *          inst.decRef();
@@ -30,43 +30,43 @@ package org.elasticsearch.core;
 public interface RefCounted {
 
     /**
-     * Increments the refCount of this instance.
+     * 递增此实例的 refCount。
      *
      * @see #decRef
-     * @see #tryIncRef()
-     * @throws IllegalStateException iff the reference counter can not be incremented.
+     * @see #tryIncRef（）
+     * @throws IllegalStateException 如果引用计数器不能递增。
      */
     void incRef();
 
     /**
-     * Tries to increment the refCount of this instance. This method will return {@code true} iff the refCount was successfully incremented.
+     * 尝试增加此实例的 refCount。如果 refCount 成功递增，此方法将返回 {@code true}。
      *
-     * @see #decRef()
-     * @see #incRef()
+     * @see #decRef（）
+     * @see #incRef（）
      */
     boolean tryIncRef();
 
     /**
-     * Decreases the refCount of this  instance. If the refCount drops to 0, then this
-     * instance is considered as closed and should not be used anymore.
+     * 减少此实例的 refCount。如果 refCount 下降到 0，则此
+     * 实例被视为已关闭，不应再使用。
      *
      * @see #incRef
      *
-     * @return returns {@code true} if the ref count dropped to 0 as a result of calling this method
+     * @return 如果调用此方法后 ref 计数下降到 0，则返回 {@code true}
      */
     boolean decRef();
 
     /**
-     * Returns {@code true} only if there was at least one active reference when the method was called; if it returns {@code false} then the
-     * object is closed; future attempts to acquire references will fail.
+     * 仅当调用方法时至少有一个活动引用时，才返回 {@code true};如果返回 {@code false}，则
+     * 对象已关闭;将来尝试获取引用将失败。
      *
-     * @return whether there are currently any active references to this object.
+     * @return当前是否有对此对象的任何活动引用。
      */
     boolean hasReferences();
 
     /**
-     * Similar to {@link #incRef()} except that it also asserts that it managed to acquire the ref, for use in situations where it is a bug
-     * if all refs have been released.
+     * 类似于 {@link #incRef（）}，但它还声称它设法获取了 ref，以便在出现错误的情况下使用
+     * 如果所有 ref 都已发布。
      */
     default void mustIncRef() {
         if (tryIncRef()) {
